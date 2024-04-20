@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rock Paper Scissors Game</title>
+    <style>
+        /* Optional: You can add some basic styling here */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Rock Paper Scissors Game</h1>
+    <p>Wins: <span id="wins">0</span></p>
+    <p>Ties: <span id="ties">0</span></p>
+    <p>Losses: <span id="losses">0</span></p>
+
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <script>
+        // Initialize game state variables
+        let wins = 0;
+        let ties = 0;
+        let losses = 0;
+
+        // Function to generate the computer's choice randomly
+        function getComputerChoice() {
+            const choices = ['rock', 'paper', 'scissors'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
+        }
+
+        // Function to handle the user's choice and compare it with the computer's choice
+        function playGame(userChoice) {
+            const computerChoice = getComputerChoice();
+            let result = '';
+
+            if (userChoice === computerChoice) {
+                ties++;
+                result = 'tie';
+            } else if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                wins++;
+                result = 'win';
+            } else {
+                losses++;
+                result = 'loss';
+            }
+
+            // Update the game state display
+            document.getElementById('wins').innerText = wins;
+            document.getElementById('ties').innerText = ties;
+            document.getElementById('losses').innerText = losses;
+
+            // Optionally, you can log the result to the console
+            console.log(`User choice: ${userChoice}, Computer choice: ${computerChoice}, Result: ${result}`);
+        }
+
+        // Add event listeners to buttons
+        document.getElementById('rock').addEventListener('click', () => playGame('rock'));
+        document.getElementById('paper').addEventListener('click', () => playGame('paper'));
+        document.getElementById('scissors').addEventListener('click', () => playGame('scissors'));
+    </script>
+</body>
+
+</html>
